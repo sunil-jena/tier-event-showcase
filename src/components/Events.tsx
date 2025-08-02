@@ -14,6 +14,8 @@ const Events = () => {
   const { toast } = useToast();
   const userTier = (user?.unsafeMetadata?.tier as UserTier) || 'free';
 
+  console.log(user);
+  
   const handleUpgradeClick = () => {
     toast({
       title: "Upgrade Your Tier",

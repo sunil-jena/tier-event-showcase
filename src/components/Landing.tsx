@@ -43,6 +43,8 @@ const tierFeatures = [
 ];
 
 const Landing = () => {
+
+  
   return (
     <Layout>
       {/* Hero Section */}

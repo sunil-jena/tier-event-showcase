@@ -6,7 +6,7 @@ import { CalendarDays } from 'lucide-react';
 import Link from 'next/link';
 
 const Login = () => {
-    const [isSignUp, setIsSignUp] = useState(false);
+    const [isSignUp, setIsSignUp] = useState<boolean>(false);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-background to-muted/50 flex items-center justify-center p-4">
