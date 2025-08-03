@@ -1,10 +1,17 @@
-import Events from '@/components/Events'
-import React from 'react'
+import { currentUser } from '@clerk/nextjs/server';
+import Events from '@/components/Events';
+import { fetchEventsByTier } from '@/components/lib/fetchEventsByTier';
+import { UserTier } from '@/components/types/tier';
 
-const page = () => {
-    return (
-        <Events />
-    )
-}
+const Page = async () => {
+  const user = await currentUser();
 
-export default page
+  if (!user) return null;
+
+  const tier = (user?.publicMetadata?.tier || 'free') as UserTier;
+  const events = await fetchEventsByTier(tier);
+
+  return <Events events={events} />;
+};
+
+export default Page;

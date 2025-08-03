@@ -4,7 +4,7 @@ export interface Event {
   id: string;
   title: string;
   description: string;
-  date: string;
+  event_date: string;
   tier: UserTier;
   image?: string;
 }
