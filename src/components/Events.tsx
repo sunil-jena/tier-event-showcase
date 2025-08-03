@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Settings } from 'lucide-react';
 import { UserTier } from './types/tier';
 import Link from 'next/link';
-import { mockEvents } from './data/mock-events';
 import { EventCard } from './ui/event-card';
 import Layout from './layout/layout';
 import { useEffect } from 'react';
@@ -66,7 +65,7 @@ const Events = ({ events }: EventsProps) => {
           ))}
         </div>
 
-        {mockEvents.length === 0 && (
+        {events?.length === 0 && (
           <div className='text-center py-12'>
             <h3 className='text-xl font-semibold mb-2'>No events found</h3>
             <p className='text-muted-foreground'>
