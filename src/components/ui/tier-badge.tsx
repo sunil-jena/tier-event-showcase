@@ -1,7 +1,6 @@
-import { cn } from "../lib/utils";
-import { TIER_COLORS, TIER_LABELS, UserTier } from "../types/tier";
-import { Badge } from "./badge";
-
+import { cn } from '@/components/lib/utils';
+import { TIER_COLORS, TIER_LABELS, UserTier } from '../types/tier';
+import { Badge } from './badge';
 interface TierBadgeProps {
   tier: UserTier;
   className?: string;
@@ -9,7 +8,6 @@ interface TierBadgeProps {
 
 export function TierBadge({ tier, className }: TierBadgeProps) {
   const tierColorClass = TIER_COLORS[tier];
-
   return (
     <Badge
       className={cn(

@@ -1,10 +1,8 @@
-import Profile from '@/components/Profile'
-import React from 'react'
+import ProfileDashboard from '@/components/profile/ProfileDashboard';
+import React from 'react';
 
 const page = () => {
-    return (
-        <Profile />
-    )
-}
+  return <ProfileDashboard />;
+};
 
-export default page
+export default page;

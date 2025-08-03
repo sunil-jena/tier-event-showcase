@@ -1,4 +1,3 @@
-// File: app/page.tsx
 'use client';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';

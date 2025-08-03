@@ -3,11 +3,16 @@ import { Button } from '@/components/ui/button';
 import { Settings } from 'lucide-react';
 import { UserTier } from './types/tier';
 import Link from 'next/link';
-import { EventCard } from './ui/event-card';
 import Layout from './layout/layout';
 import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
+import dynamic from 'next/dynamic';
+import EventCardSkeleton from './ui/skeleton/EventCardSkeleton';
 
+const EventCard = dynamic(() => import('@/components/ui/event-card'), {
+  ssr: false,
+  loading: () => <EventCardSkeleton />,
+});
 export interface Event {
   id: string;
   title: string;
@@ -16,13 +21,13 @@ export interface Event {
   image_url: string;
   tier: UserTier;
 }
-
 interface EventsProps {
   events: Event[];
 }
 
 const Events = ({ events }: EventsProps) => {
   const { user } = useUser();
+
   useEffect(() => {
     user?.reload();
     const ensureTier = async () => {

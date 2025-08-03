@@ -12,12 +12,10 @@ import { Event } from '../types/tier';
 import Image from 'next/image';
 import { cn } from '../lib/utils';
 import { format } from 'date-fns';
-
 interface EventCardProps {
   event: Event;
 }
-
-export function EventCard({ event }: EventCardProps) {
+export default function EventCard({ event }: EventCardProps) {
   const eventDate = new Date(event.event_date);
 
   return (
