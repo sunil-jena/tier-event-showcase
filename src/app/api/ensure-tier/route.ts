@@ -13,9 +13,10 @@ export async function GET() {
     await client.users.updateUser(userId, {
       publicMetadata: {
         ...user.publicMetadata,
-        tier: 'free',
+        tier: user.publicMetadata.tire || 'free',
       },
     });
+
     return NextResponse.json({ message: 'Tier set to free' });
   }
 

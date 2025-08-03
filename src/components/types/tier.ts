@@ -6,7 +6,7 @@ export interface Event {
   description: string;
   event_date: string;
   tier: UserTier;
-  image?: string;
+  image_url?: string;
 }
 
 export const TIER_HIERARCHY: Record<UserTier, number> = {

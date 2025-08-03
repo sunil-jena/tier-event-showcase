@@ -8,12 +8,14 @@ const isPublicRoute = createRouteMatcher(['/', '/login']);
 export default clerkMiddleware(async (auth, request) => {
   const isPublic = isPublicRoute(request);
   const user = await auth();
+
   if (!user.userId && !isPublic) {
     const loginUrl = new URL('/login', request.url);
     return NextResponse.redirect(loginUrl);
   }
 
   const response = await updateSession(request);
+
   return response;
 });
 

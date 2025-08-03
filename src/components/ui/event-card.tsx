@@ -31,7 +31,7 @@ export function EventCard({ event }: EventCardProps) {
         <Image
           height={1280}
           width={720}
-          src={event.image || eventPlaceholder}
+          src={event.image_url || eventPlaceholder}
           alt={event.title}
           className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105'
         />

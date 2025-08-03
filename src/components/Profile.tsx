@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { TierBadge } from '@/components/ui/tier-badge';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Crown, Star, Users, Zap } from 'lucide-react';
 import { useToast } from './hooks/use-toast';
 import { TIER_LABELS, UserTier } from './types/tier';
@@ -22,23 +22,24 @@ import {
 } from './ui/select';
 import Layout from './layout/layout';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const tierBenefits = {
   free: ['Access to free events', 'Community support', 'Basic resources'],
   silver: [
-    'All Free benefits',
+    // 'All Free benefits',
     'Advanced workshops',
     'Priority support',
     'Early access',
   ],
   gold: [
-    'All Silver benefits',
+    // 'All Silver benefits',
     'Expert-led sessions',
     'Certification prep',
     'Premium resources',
   ],
   platinum: [
-    'All Gold benefits',
+    // 'All Gold benefits',
     'Exclusive events',
     'VIP networking',
     'Personal mentorship',
@@ -49,43 +50,24 @@ const Profile = () => {
   const { user } = useUser();
   const { toast } = useToast();
   const currentTier = user?.publicMetadata?.tier as UserTier;
+
   const [selectedTier, setSelectedTier] = useState<UserTier>(currentTier);
   const [isUpgrading, setIsUpgrading] = useState<boolean>(false);
   const navigate = useRouter();
-
-  useEffect(() => {
-    const ensureTier = async () => {
-      try {
-        const res = await fetch('/api/ensure-tier');
-        const data = await res.json();
-        console.log('🎯 Tier check:', data);
-      } catch (err) {
-        console.error('❌ Failed to ensure tier:', err);
-      }
-    };
-
-    ensureTier();
-  }, []);
 
   const handleTierUpgrade = async () => {
     if (!user || selectedTier === currentTier) return;
     setIsUpgrading(true);
 
     try {
-      const res = await fetch('/api/update-tier', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ tier: selectedTier }),
-      });
-
+      const res = await axios.post('/api/update-tier', { tier: selectedTier });
       if (res.status === 200) {
-        navigate.push('/events');
         toast({
           title: 'Tier Updated Successfully!',
           description: `You've been upgraded to ${TIER_LABELS[selectedTier]} tier.`,
         });
+        navigate.replace('/events');
+        navigate.refresh();
       }
     } catch (error) {
       console.log(error);

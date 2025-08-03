@@ -5,9 +5,7 @@ import { UserTier } from '@/components/types/tier';
 
 const Page = async () => {
   const user = await currentUser();
-
   if (!user) return null;
-
   const tier = (user?.publicMetadata?.tier || 'free') as UserTier;
   const events = await fetchEventsByTier(tier);
 

@@ -1,4 +1,3 @@
-'use client';
 import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, User } from 'lucide-react';
@@ -11,7 +10,6 @@ import { usePathname } from 'next/navigation';
 export function Header() {
   const { user } = useUser();
   const pathname = usePathname();
-
   const userTier = (user?.publicMetadata?.tier as UserTier) || 'free';
 
   return (

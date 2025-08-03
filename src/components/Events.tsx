@@ -7,6 +7,7 @@ import { mockEvents } from './data/mock-events';
 import { EventCard } from './ui/event-card';
 import Layout from './layout/layout';
 import { useEffect } from 'react';
+import { useUser } from '@clerk/nextjs';
 
 export interface Event {
   id: string;
@@ -22,19 +23,23 @@ interface EventsProps {
 }
 
 const Events = ({ events }: EventsProps) => {
+  const { user } = useUser();
   useEffect(() => {
+    user?.reload();
     const ensureTier = async () => {
       try {
         const res = await fetch('/api/ensure-tier');
         const data = await res.json();
+
         console.log('🎯 Tier check:', data);
       } catch (err) {
         console.error('❌ Failed to ensure tier:', err);
       }
     };
-
-    ensureTier();
-  }, []);
+    if (!user?.publicMetadata?.tier) {
+      ensureTier();
+    }
+  }, [user]);
 
   return (
     <Layout>
